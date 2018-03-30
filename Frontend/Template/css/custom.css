@@ -30,6 +30,8 @@ h1 {
   padding: 6px 144px;
 }
 
+
+
 @media (min-width: 768px) {
     .search .navbar-default {
       background-color: lightgrey;
