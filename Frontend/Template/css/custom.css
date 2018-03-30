@@ -62,3 +62,10 @@ h1 {
       border-top-color: black;
     }
   }
+
+
+  .info {
+    font-size: 120%;
+    padding: 0;
+    margin: 0;
+  }
