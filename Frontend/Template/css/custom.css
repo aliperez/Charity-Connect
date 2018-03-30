@@ -2,6 +2,34 @@ h1 {
     font-size:100px !important;
 }
 
+.btn {
+  font-weight: 700;
+  font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 6px 200px;
+  font-size: 15px;
+  line-height: 1.55;
+  border-radius: 0;
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 6px 144px;
+}
+
 @media (min-width: 768px) {
     .search .navbar-default {
       background-color: lightgrey;
