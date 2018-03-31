@@ -27,103 +27,137 @@
 </head>
 
 <body class="search">
-        <header class="header">
-                <div role="navigation" class="navbar navbar-default">
-                  <div class="container">
-                    <div class="navbar-header">
-                      <!-- <a href="index.html" class="navbar-brand">Fantastic Four</a> -->
-                      <div class="navbar-buttons">
-                        <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle navbar-btn">Menu
-                          <i class="fa fa-align-justify"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div id="navigation" class="collapse navbar-collapse navbar-right">
-                      <ul class="nav navbar-nav">
-                        <li class="active">
-                          <a href="index.html">HOME</a>
-                        </li>
-                        <li class="active" id="nav-search">
-                          <a href="search.html">SEARCH</a>
-                        </li>
-                    </div>
-                  </div>
-                </div>
-              </header>
-
-    <section id="portfolio" class="section--no-padding-bottom" class="background-gray-lightest">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <h2 class="text-center">Search</h2>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                          Dropdown
-                          <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenu1">
-                          <li class="text-center"><a href="#">Democracy/Government</a></li>
-                          <li class="text-center"><a href="#">Technology</a></li>
-                          <li class="text-center"><a href="#">Sports</a></li>
-                          <li class="text-center"><a href="#">Society and Work</a></li>
-                          <li class="text-center"><a href="#">Social Welfare/Human Rights</a></li>
-                          <li class="text-center"><a href="#">Religion</a></li>
-                          <li class="text-center"><a href="#">Objects and Donations</a></li>
-                          <li class="text-center"><a href="#">Microfinance</a></li>
-                          <li class="text-center"><a href="#">International Aid</a></li>
-                          <li class="text-center"><a href="#">Health</a></li>
-                          <li class="text-center"><a href="#">Environment</a></li>
-                          <li class="text-center"><a href="#">Emergencies/Development</a></li>
-                          <li class="text-center"><a href="#">Elderly</a></li>
-                          <li class="text-center"><a href="#">Education</a></li>
-                          <li class="text-center"><a href="#">Animals</a></li>
-                          <li class="text-center"><a href="#">Africa</a></li>
-                          <li class="text-center"><a href="#">Art and Culture</a></li>
-                          <li class="text-center"><a href="#">Women and Girls</a></li>
-                        </ul>
-                      </div>
-                      
-                    <!-- <div class="col-md-4">
-                        <button class="btn btn-default text-center">Submit</button>
-                    </div> -->
-
-                  <!-- <input class="form-control" type="text" style="text-align: center" placeholder="Charity, Projects, Keywords"> -->
-                
-                  <!-- <div class="col-md-6 col-md-offset-3">
-                  <button class="btn btn-default text-center">Submit</button>
-                  </div> -->
-                </div>
-              
-            </div>
-            <div class="container-fluid">
-              <div class="row no-space">
-              </div>
-            </div>
-      </section>
-    
-      <section id="connect" class="section--no-padding-bottom">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <h2>Connect With Charities</h2>
-              <p class="lead margin-bottom--big">This part will show up after the submit button is clicked. Map will go below.</p>
-            </div>
+  <header class="header">
+    <div role="navigation" class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <!-- <a href="index.html" class="navbar-brand">Fantastic Four</a> -->
+          <div class="navbar-buttons">
+            <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle navbar-btn">Menu
+              <i class="fa fa-align-justify"></i>
+            </button>
           </div>
         </div>
-        <div class="container-fluid">
+        <div id="navigation" class="collapse navbar-collapse navbar-right">
+          <ul class="nav navbar-nav">
+            <li class="active">
+              <a href="index.html">HOME</a>
+            </li>
+            <li class="active" id="nav-search">
+              <a href="search.html">SEARCH</a>
+            </li>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="portfolio" class="section--no-padding-bottom" class="background-gray-lightest">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h2 class="text-center">Search</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <input id="inputField" class="form-control" type="text" style="text-align: center" placeholder="Charity, Projects, Keywords">
+          </div>
+        </div>  
+        <br>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <button class="btn btn-default" id="submit-button">Submit</button>
+          </div>
+        </div>
+          <!-- <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="true">
+                Dropdown
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenu1">
+                <li class="text-center">
+                  <a href="#">Democracy/Government</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Technology</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Sports</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Society and Work</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Social Welfare/Human Rights</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Religion</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Objects and Donations</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Microfinance</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">International Aid</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Health</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Environment</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Emergencies/Development</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Elderly</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Education</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Animals</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Africa</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Art and Culture</a>
+                </li>
+                <li class="text-center">
+                  <a href="#">Women and Girls</a>
+                </li>
+              </ul>
+            </div> -->
+
+        <!-- <div class="container-fluid">
           <div class="row no-space">
           </div>
+        </div> -->
+  </section>
+
+  <section id="connect" class="section--no-padding-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h2>Connect With Charities</h2>
+          <p class="lead margin-bottom--big">This part will show up after the submit button is clicked. Map will go below.</p>
         </div>
-      </section>
-    
-      <div id="map"></div>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>
-      <!-- Javascript files-->
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row no-space">
+      </div>
+    </div>
+  </section>
+
+  <div id="map" style="width:100%;height:400px;"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7-1RDbZ2yiKc_lu1XRQrVVyn840s6dTg&callback=myMap"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script> -->
+  <!-- Javascript files-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/lightbox.min.js"></script>
@@ -131,4 +165,5 @@
 
 
 </body>
+
 </html>
