@@ -1,14 +1,22 @@
 // // Celeste's key just in case we need it later...
 // var queryURL = "https://api.data.charitynavigator.org/v2/Organizations?app_id=290c7176&app_key=8e151b01fb2a821c90c46ee1498a8215&search=" + userInput + "&rated=true&minRating=0&maxRating=4";
 
-var geoCodingAddress, lat, long;
+// $(document).ready(function(){
 
+var geoCodingAddress
+var lat = 50;
+var long = 14;
+
+var arrayLat = [];
+var arrayLong = [];
+
+// initMap();
 
 $("#submit-button").on("click", function (event) {
 
     event.preventDefault();
 
-    var userInput = $("#inputField").val(); 
+    var userInput = $("#inputField").val();
 
     var queryURL = "https://api.data.charitynavigator.org/v2/Organizations?app_id=b3e49cae&app_key=9895f628abd6b37aff48c8eab486f7ed&search=" + userInput + "&rated=true&minRating=0&maxRating=4";
 
@@ -16,51 +24,55 @@ $("#submit-button").on("click", function (event) {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        // Get reference to existing tbody element, create a new table row element
+
         console.log(response);
 
-        console.log(response[0].charityName);
+        for (var i = 0; i < 100; i++) {
 
-        console.log(response[0].mailingAddress);
+        // var i = 0;
 
-        console.log(response[0].mailingAddress.postalCode);
+        console.log("i is currently: " + i);
 
-        console.log(response[0].mission);
+        // console.log(response[i].charityName);
+        // console.log(response[i].mailingAddress);
+        // console.log(response[i].mailingAddress.postalCode);
+        // console.log(response[i].mission);
+        // console.log(response[i].websiteURL);
+        // console.log("Rating: " + response[i].currentRating.rating);
 
-        console.log(response[0].websiteURL);
+        // console.log(response[i].mailingAddress.streetAddress1 + ", " + response[i].mailingAddress.city + ", " + response[i].mailingAddress.stateOrProvince + ", " + response[i].mailingAddress.postalCode);
 
-        console.log("Rating: " + response[0].currentRating.rating);
+        geoCodingAddress = response[i].mailingAddress.streetAddress1 + ",+" + response[i].mailingAddress.city + ",+" + response[i].mailingAddress.stateOrProvince;
 
-        console.log(response[1].mailingAddress.streetAddress1 + ", " + response[1].mailingAddress.city + ", " + response[1].mailingAddress.stateOrProvince + ", " + response[1].mailingAddress.postalCode);
+        console.log(geoCodingAddress);
 
-        geoCodingAddress = response[1].mailingAddress.streetAddress1 + ",+" + response[1].mailingAddress.city + ",+" + response[1].mailingAddress.stateOrProvince;
+            $.ajax({
+                url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + geoCodingAddress + "&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo",
+                method: "GET"
+            }).then(function (snapshot) {
 
-        // console.log(geoCodingAddress);
+                // var i = 0;
+    
+                // console.log("LOOK HERE! " + JSON.stringify(snapshot.results[i]));
 
-        // https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo
+                // console.log("Geocoding snapshot latitude: " + JSON.stringify(snapshot.results[0].geometry.location.lat));
+                // console.log("Geocoding snapshot longitude: " + JSON.stringify(snapshot.results[0].geometry.location.lng));
+    
+                lat = JSON.stringify(snapshot.results[0].geometry.location.lat);
+                long = JSON.stringify(snapshot.results[0].geometry.location.lng);
 
-        // https://maps.googleapis.com/maps/api/geocode/json?address=14175+Southwest+Galbreath+Drive,+Sherwood,+OR&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo
+                // console.log(lat);
+                // console.log(long);
 
-        $.ajax({
-            url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + geoCodingAddress + "&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo",
-            method: "GET"
-        }).then(function (response) {
+                arrayLat.push(lat);
+                arrayLong.push(long);
 
-            // console.log("Inner AJAX response: " + geoCodingAddress);
+                myMap();
+            });
 
-            // https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo
+        }
 
-            // https://maps.googleapis.com/maps/api/geocode/json?address=14175+Southwest+Galbreath+Drive,+Sherwood,+OR&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo
-
-            console.log("Geocoding response latitude: " + JSON.stringify(response.results[0].geometry.location.lat));
-            console.log("Geocoding response longitude: " + JSON.stringify(response.results[0].geometry.location.lng));
-
-            lat = response.results[0].geometry.location.lat;
-            long = response.results[0].geometry.location.lng;
-
-            myMap();
-
-        });
+        console.log(arrayLat, arrayLong);
 
     });
 
@@ -73,73 +85,24 @@ function myMap() {
     var myCenter = new google.maps.LatLng(lat, long);
 
     var mapCanvas = document.getElementById("map");
+    var mapOptions = { center: myCenter, zoom: 2 };
 
-    var mapOptions = { center: myCenter, zoom: 5 };
     var map = new google.maps.Map(mapCanvas, mapOptions);
     var marker = new google.maps.Marker({ position: myCenter });
     marker.setMap(map);
 }
 
 
-
-// // W3 Schools no marker
-
-// function myMap() {
-
-//     var mapProp= {
-//         center:new google.maps.LatLng(51.508742,-0.120850),
-//         zoom:5,
-//     };
-
-//     var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-//     }
-
-
-// // W3 Schools with marker
-
-
-
-
-
-
-
-
-
-
-// // Google Maps API
 // function initMap() {
-//     var uluru = {lat: 33, lng: -117};
-//     var map = new google.maps.Map(document.getElementById('map'), {
-//       zoom: 4,
-//       center: uluru
-//     });
-//     var marker = new google.maps.Marker({
-//       position: uluru,
-//       map: map
-//     });
-//   }
+//     var myCenter = new google.maps.LatLng(50, 100);
 
-//   initMap();
+//     var mapCanvas = document.getElementById("map");
 
-// // Template Guy
-// $(function () {
+//     var mapOptions = { center: myCenter, zoom: 2 };
+//     var map = new google.maps.Map(mapCanvas, mapOptions);
+//     var marker = new google.maps.Marker({ position: myCenter });
+//     marker.setMap(map);
+// }
 
-//     function initMap() {
 
-//         var location = new google.maps.LatLng(50.0875726, 14.4189987);
-
-//         var mapCanvas = document.getElementById('map');
-//         var mapOptions = {
-//             center: location,
-//             zoom: 16,
-//             panControl: false,
-//             mapTypeId: google.maps.MapTypeId.ROADMAP
-//         }
-//         var map = new google.maps.Map(mapCanvas, mapOptions);
-
-//     }
-
-//     google.maps.event.addDomListener(window, 'load', initMap);
 // });
-
-
