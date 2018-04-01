@@ -59,7 +59,7 @@ $("#submit-button").on("click", function (event) {
                 
             });
 
-            // myMap(i); 
+            // myMap(); 
 
         }
 
@@ -84,7 +84,7 @@ function initMap() {
 
 }
 
-function myMap(index) {
+function myMap() {
     // var myCenter = new google.maps.LatLng(50, 14);
     // var mapCanvas = document.getElementById("map");
     // var mapOptions = {  center: myCenter, zoom: 2 };
