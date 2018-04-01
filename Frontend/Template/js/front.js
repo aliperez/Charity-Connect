@@ -17,10 +17,12 @@ $("#submit-button").on("click", function (event) {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
+        var link = response[0].websiteURL
 
         contentString = '<div class="info-window">' + '<h6>' + response[0].charityName + '</h6>' +
             '<div class="info-content">' + 'Rating: ' + response[0].currentRating.rating + '<br>' + 'Address: ' + response[1].mailingAddress.streetAddress1 + ", " + response[1].mailingAddress.city + ", " + response[1].mailingAddress.stateOrProvince + ", " + response[1].mailingAddress.postalCode + '<br>' + "Tag line: " + response[0].tagLine + '<br>' + 'Website: '+'<a href="http://purrfectpals.org" target="_blank">' + response[0].websiteURL +'</a>';
 
+        $(contentString).append(link)
         // Get reference to existing tbody element, create a new table row element
         console.log(response);
 
@@ -39,6 +41,8 @@ $("#submit-button").on("click", function (event) {
         console.log(response[1].mailingAddress.streetAddress1 + ", " + response[1].mailingAddress.city + ", " + response[1].mailingAddress.stateOrProvince + ", " + response[1].mailingAddress.postalCode);
 
         geoCodingAddress = response[1].mailingAddress.streetAddress1 + ",+" + response[1].mailingAddress.city + ",+" + response[1].mailingAddress.stateOrProvince;
+
+        console.log('Website: ' + link)
 
         // console.log(geoCodingAddress);
 
