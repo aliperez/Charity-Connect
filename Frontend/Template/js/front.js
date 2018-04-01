@@ -17,9 +17,9 @@ $("#submit-button").on("click", function (event) {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-
+    
         contentString = '<div class="info-window">' + '<h6>' + response[0].charityName + '</h6>' +
-            '<div class="info-content">' + 'Rating: ' + response[0].currentRating.rating + '<br>' + 'Address: ' + response[1].mailingAddress.streetAddress1 + ", " + response[1].mailingAddress.city + ", " + response[1].mailingAddress.stateOrProvince + ", " + response[1].mailingAddress.postalCode + '<br>' + "Tag line: " + response[0].tagLine + '<br>' + 'Website: ' + response[0].websiteURL;
+        '<div class="info-content">' + 'Rating: ' + response[0].currentRating.rating + '<br>' + 'Address: ' + response[1].mailingAddress.streetAddress1 + ", " + response[1].mailingAddress.city + ", " + response[1].mailingAddress.stateOrProvince + ", " + response[1].mailingAddress.postalCode + '<br>' + "Tag line: " + response[0].tagLine + '<br>' + 'Website: '+'<a href="http://purrfectpals.org" target="_blank">' + response[0].websiteURL +'</a>';
 
         // Get reference to existing tbody element, create a new table row element
         console.log(response);
@@ -106,7 +106,7 @@ function myMap() {
 //    });
 
 // });
-
+/*
 $(function () {
 
     lightbox();
@@ -116,7 +116,7 @@ $(function () {
 });
 
 
-/* Lightroom function */
+ Lightroom function 
 
 function lightbox() {
 
@@ -128,7 +128,7 @@ function lightbox() {
         });
     });
 }
-
+*/
 
 /* Map function */
 
@@ -258,7 +258,7 @@ function lightbox() {
 
 
 /* menu sliding IF DELETED MAP DOESN'T APPEAR ON PAGE*/
-
+/*
 function menuSliding() {
 
 
@@ -282,35 +282,35 @@ function menuSliding() {
     });
 
 }
-
-/* Utils function IF DELETED MAP DOESN'T APPEAR ON PAGE*/
+*/
+/* Utils function IF DELETED MAP DOESN'T APPEAR ON PAGE
 
 function utils() {
 
     /* tooltips */
 
-    $('[data-toggle="tooltip"]').tooltip();
+    // $('[data-toggle="tooltip"]').tooltip();
 
-    /* click on the box activates the radio */
+    /* click on the box activates the radio 
 
     $('#checkout').on('click', '.box.shipping-method, .box.payment-method', function (e) {
         var radio = $(this).find(':radio');
         radio.prop('checked', true);
     });
-    /* click on the box activates the link in it */
+    /* click on the box activates the link in it 
 
     $('.box.clickable').on('click', function (e) {
 
         window.location = $(this).find('a').attr('href');
     });
-    /* external links in new window*/
+    /* external links in new window
 
     $('.external').on('click', function (e) {
 
         e.preventDefault();
         window.open($(this).attr("href"));
-    });
-    /* animated scrolling */
+    });  */
+    /* animated scrolling 
 
     $('.scroll-to, .scroll-to-top').click(function (event) {
 
@@ -338,4 +338,5 @@ function utils() {
     }
 }
 
+*/
 
