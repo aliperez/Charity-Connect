@@ -19,7 +19,7 @@ $("#submit-button").on("click", function (event) {
     }).then(function (response) {
 
         contentString = '<div class="info-window">' + '<h6>' + response[0].charityName + '</h6>' +
-            '<div class="info-content">' + 'Rating: ' + response[0].currentRating.rating + '<br>' + 'Address: ' + response[1].mailingAddress.streetAddress1 + ", " + response[1].mailingAddress.city + ", " + response[1].mailingAddress.stateOrProvince + ", " + response[1].mailingAddress.postalCode + '<br>' + "Tag line: " + response[0].tagLine + '<br>' + 'Website: ' + response[0].websiteURL;
+            '<div class="info-content">' + 'Rating: ' + response[0].currentRating.rating + '<br>' + 'Address: ' + response[1].mailingAddress.streetAddress1 + ", " + response[1].mailingAddress.city + ", " + response[1].mailingAddress.stateOrProvince + ", " + response[1].mailingAddress.postalCode + '<br>' + "Tag line: " + response[0].tagLine + '<br>' + 'Website: '+'<a href="http://purrfectpals.org" target="_blank">' + response[0].websiteURL +'</a>';
 
         // Get reference to existing tbody element, create a new table row element
         console.log(response);
