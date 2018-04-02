@@ -7,7 +7,7 @@ $(document).ready(function () {
 
         $("#connect").show();
         var userInput = $("#inputField").val();
-        var queryURL = "https://api.data.charitynavigator.org/v2/Organizations?app_id=b3e49cae&app_key=9895f628abd6b37aff48c8eab486f7ed&search=" + userInput + "&rated=true&minRating=0&maxRating=4";
+        var queryURL = "https://api.data.charitynavigator.org/v2/Organizations?app_id=b3e49cae&app_key=9895f628abd6b37aff48c8eab486f7ed&search=" + userInput + "&rated=true&minRating=0&maxRating=4&pageSize=3";
 
         $.ajax({
             url: queryURL,
@@ -24,11 +24,13 @@ $(document).ready(function () {
     });
 });
 function myMap() {
-    var lat = 50;
-    var long = 14;
+    // var lat = 50;
+    var lat = 45;
+    // var long = 14;
+    var long = -95;
     var myCenter = new google.maps.LatLng(lat, long);
     var mapCanvas = document.getElementById("map");
-    var mapOptions = { center: myCenter, zoom: 2 };
+    var mapOptions = { center: myCenter, zoom: 3.5};
     map = new google.maps.Map(mapCanvas, mapOptions);
 }
 
@@ -45,7 +47,7 @@ function updateResult(data) {
             url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + geoCodingAddress + "&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo",
             method: "GET",
             
-            // sync ajax request instead of async works but browser freezes!! 
+            // sync ajax request (instead of async) works but browser freezes!! 
             async: false,
             success: function (data) {
                 // contentString overrides !!! 
@@ -58,7 +60,7 @@ function updateResult(data) {
         })
     }
 }
-function updateLatLong(data, contentString) {
+function updateLatLong(data, latLongContentString) {
     // console.log(contentString);
     // console.log(data);
     if (data.status == "OK") {
@@ -68,9 +70,8 @@ function updateLatLong(data, contentString) {
 
         var newPin = new google.maps.LatLng(lat, long);
         var marker = new google.maps.Marker({ position: newPin, map: map });
-        marker.setMap(map);
         var infowindow = new google.maps.InfoWindow({
-            content: contentString,
+            content: latLongContentString,
             maxWidth: 400
         });
 
@@ -79,3 +80,12 @@ function updateLatLong(data, contentString) {
         });
     } 
 }
+
+
+// Get the address charity API 
+
+// Loop through those to get lat/long 
+
+// push all data to an array of lat/long & content 
+
+// using a loop set up the map with the data from the array..
