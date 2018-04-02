@@ -87,27 +87,22 @@ function updateLatLong(data, contentString) {
             content:'<div class="scrollFix">'+contentString+'</div>',
             maxWidth: 400
         });
-        var currentWindow = false;
+
+
+        currentWindow = null;
 
         
-        marker.addListener('click', function () {
-            infowindow.open(map, marker);
-        });
 
-        // google.maps.event.addListener(marker, 'click', function () { CELESTE
-        //     if(currentWindow){
-        //         currentWindow.close();
-        //     }
-        //     currentWindow = infowindow;
-        //     infowindow.open(map, marker);
-            
-        // });
+        marker.addListener('click', function () {
+            if (currentWindow) currentWindow.close();
+            infowindow.open(map, marker);
+            currentWindow=infowindow;
+        });
 
         google.maps.event.addListener(map, 'click', function () {
             if
             (infowindow != null) { infowindow.close(); }
         });
-
 
     }
 }
