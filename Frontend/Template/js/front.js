@@ -1,4 +1,4 @@
-var geoCodingAddress, lat, long, contentString;
+var geoCodingAddress, lat, long, contentString, marker;
 
 $(document).bind('keypress', function (e) {
     if (e.keyCode == 13) {
@@ -19,10 +19,7 @@ $("#submit-button").on("click", function (event) {
         method: "GET"
     }).then(function (response) {
 
-
-
         var link = response[0].websiteURL
-
 
         contentString = '<div class="info-window">' + '<h6>' + response[0].charityName + '</h6>' +
             '<div class="info-content">' + 'Rating: ' + response[0].currentRating.rating + '<br>' + 'Address: ' + response[1].mailingAddress.streetAddress1 + ", " + response[1].mailingAddress.city + ", " + response[1].mailingAddress.stateOrProvince + ", " + response[1].mailingAddress.postalCode + '<br>' + "Tag line: " + response[0].tagLine + '<br>' + 'Website: ' + '<a href="http://purrfectpals.org" target="_blank">' + response[0].websiteURL + '</a>';
@@ -104,7 +101,6 @@ function myMap() {
     });
 
 }
-
 
 
 // $(function(){
