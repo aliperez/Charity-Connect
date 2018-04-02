@@ -27,15 +27,6 @@ $(document).ready(function () {
         // empty the input field
         $("#inputField").val("");
     });
-
-    // $('#submit-button').on('click', function() { CELESTE
-    //     if ($(this).hasClass('clicked')) {
-    //         myMap(null);
-    //         console.log("cool");
-    //      }
-    //    });
-
-
 });
 function myMap() {
     var lat = 50;
@@ -87,42 +78,10 @@ function updateLatLong(data, contentString) {
             content:'<div class="scrollFix">'+contentString+'</div>',
             maxWidth: 400
         });
-        var currentWindow = false;
 
         
         marker.addListener('click', function () {
             infowindow.open(map, marker);
         });
-
-        // google.maps.event.addListener(marker, 'click', function () { CELESTE
-        //     if(currentWindow){
-        //         currentWindow.close();
-        //     }
-        //     currentWindow = infowindow;
-        //     infowindow.open(map, marker);
-            
-        // });
-
-        google.maps.event.addListener(map, 'click', function () {
-            if
-            (infowindow != null) { infowindow.close(); }
-        });
-
-
     }
 }
-
-// $("#delete-markers").on("click", function(){ CELESTE 
-//     console.log("working");
-//     myMap(null);
-// });
-
-// function clearMarkers() { CELESTE
-//     myMap(null);
-//   }
-
-// function deleteMarkers() { CELESTE
-//     clearMarkers();
-//     var marker = new google.maps.Marker({ position: myCenter });
-//     marker.setMap(map);
-//   }
