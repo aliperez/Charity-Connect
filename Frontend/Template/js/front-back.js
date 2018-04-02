@@ -1,11 +1,16 @@
 var map;
 
-$("#connect").hide();
 $(document).ready(function () {
+
+    $(document).bind('keypress', function (e) {
+        if (e.keyCode == 13) {
+            $('#submit-button').trigger('click');
+        }
+    });
+
     $("#submit-button").on("click", function (event) {
         event.preventDefault();
 
-        $("#connect").show();
         var userInput = $("#inputField").val();
         var queryURL = "https://api.data.charitynavigator.org/v2/Organizations?app_id=b3e49cae&app_key=9895f628abd6b37aff48c8eab486f7ed&search=" + userInput + "&rated=true&minRating=0&maxRating=4";
 
@@ -44,13 +49,13 @@ function updateResult(data) {
         $.ajax({
             url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + geoCodingAddress + "&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo",
             method: "GET",
-            
+
             // sync ajax request instead of async works but browser freezes!! 
             async: false,
             success: function (data) {
                 // contentString overrides !!! 
                 //console.log(contentString);
-                updateLatLong(data,contentString);
+                updateLatLong(data, contentString);
             },
             error: function () {
                 alert('Error occured');
@@ -77,5 +82,5 @@ function updateLatLong(data, contentString) {
         marker.addListener('click', function () {
             infowindow.open(map, marker);
         });
-    } 
+    }
 }
