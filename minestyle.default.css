@@ -813,7 +813,7 @@ p.social.social--big i {
   }
 }
 /** CAROUSELS **/
-#carousel-home{
+#carousel-home {
   position: relative;
   top: -60px;
 }
@@ -1001,6 +1001,7 @@ p.social.social--big i {
       font-size: 1.9rem !important;
     }
   }
+  
   
   
 
@@ -2063,7 +2064,6 @@ label {
     margin-left: auto;
     margin-right: auto;
   }
-
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .text-center-sm {
@@ -2074,7 +2074,6 @@ label {
     margin-left: auto;
     margin-right: auto;
   }
-
 }
 /* type */
 h1,
