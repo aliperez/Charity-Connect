@@ -88,15 +88,8 @@ function updateLatLong(data, contentString) {
             maxWidth: 400
         });
 
-<<<<<<< HEAD
-        currentWindow = null;
-=======
-
         currentWindow = null;
 
-        
-
->>>>>>> d0f5362bab6425a1ec72c7074f6ead3c2bea86ed
         marker.addListener('click', function () {
             if (currentWindow) currentWindow.close();
             infowindow.open(map, marker);
