@@ -1,11 +1,16 @@
 var map;
 
-$("#connect").hide();
 $(document).ready(function () {
+
+    $(document).bind('keypress', function (e) {
+        if (e.keyCode == 13) {
+            $('#submit-button').trigger('click');
+        }
+    });
+
     $("#submit-button").on("click", function (event) {
         event.preventDefault();
 
-        $("#connect").show();
         var userInput = $("#inputField").val();
         var queryURL = "https://api.data.charitynavigator.org/v2/Organizations?app_id=b3e49cae&app_key=9895f628abd6b37aff48c8eab486f7ed&search=" + userInput + "&rated=true&minRating=0&maxRating=4&pageSize=3";
 
@@ -22,6 +27,15 @@ $(document).ready(function () {
         // empty the input field
         $("#inputField").val("");
     });
+
+    // $('#submit-button').on('click', function() { CELESTE
+    //     if ($(this).hasClass('clicked')) {
+    //         myMap(null);
+    //         console.log("cool");
+    //      }
+    //    });
+
+
 });
 function myMap() {
     // var lat = 50;
@@ -46,13 +60,11 @@ function updateResult(data) {
         $.ajax({
             url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + geoCodingAddress + "&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo",
             method: "GET",
-            
-            // sync ajax request (instead of async) works but browser freezes!! 
             async: false,
             success: function (data) {
                 // contentString overrides !!! 
                 //console.log(contentString);
-                updateLatLong(data,contentString);
+                updateLatLong(data, contentString);
             },
             error: function () {
                 alert('Error occured');
@@ -71,21 +83,44 @@ function updateLatLong(data, latLongContentString) {
         var newPin = new google.maps.LatLng(lat, long);
         var marker = new google.maps.Marker({ position: newPin, map: map });
         var infowindow = new google.maps.InfoWindow({
-            content: latLongContentString,
-            maxWidth: 400
+         content:'<div class="scrollFix">'+contentString+'</div>',
+         maxWidth: 400
         });
 
+
+        currentWindow = null;
+
         marker.addListener('click', function () {
+            if (currentWindow) currentWindow.close();
             infowindow.open(map, marker);
+            currentWindow=infowindow;
         });
+
+        google.maps.event.addListener(map, 'click', function () {
+            if
+            (infowindow != null) { infowindow.close(); }
+        });
+
     } 
 }
 
 
-// Get the address charity API 
 
-// Loop through those to get lat/long 
+    }
+}
 
-// push all data to an array of lat/long & content 
+// $("#delete-markers").on("click", function(){ CELESTE 
+//     console.log("working");
+//     myMap(null);
+// });
 
-// using a loop set up the map with the data from the array..
+// function clearMarkers() { CELESTE
+//     myMap(null);
+//   }
+
+// function deleteMarkers() { CELESTE
+//     clearMarkers();
+//     var marker = new google.maps.Marker({ position: myCenter });
+//     marker.setMap(map);
+//   }
+
