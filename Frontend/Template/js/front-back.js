@@ -88,7 +88,11 @@ function updateLatLong(data, latLongContentString) {
         });
 
 
+
         currentWindow = null;
+
+
+
 
         marker.addListener('click', function () {
             if (currentWindow) currentWindow.close();
