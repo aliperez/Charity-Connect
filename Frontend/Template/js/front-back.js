@@ -84,7 +84,7 @@ function updateLatLong(data, contentString) {
         var marker = new google.maps.Marker({ position: newPin, map: map });
         marker.setMap(map);
         var infowindow = new google.maps.InfoWindow({
-            content: contentString,
+            content:'<div class="scrollFix">'+contentString+'</div>',
             maxWidth: 400
         });
 

@@ -66,8 +66,21 @@ h1 {
   }
 
 
-  .info {
-    font-size: 120%;
-    padding: 0;
-    margin: 0;
+  .super-heading {
+    font-size: 11rem !important;
+  }
+    
+  .super-paragraph {
+    font-size: 4rem !important;
+  }
+    .info {
+      font-size: 120%;
+      padding: 0;
+      margin: 0;
+    }
+  
+    .scrollFix {
+      line-height: 1.35;
+      overflow: hidden !important;
+      white-space: nowrap;
   }

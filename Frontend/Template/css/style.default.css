@@ -831,32 +831,179 @@ p.social.social--big i {
     margin-left: 50px;
     margin-right: 50px;
   }
-  #carousel-home .super-heading {
+  /* #carousel-home .super-heading {
     font-size: 70px;
-  }
-  #carousel-home .super-paragraph {
+  } */
+  /* #carousel-home .super-paragraph {
     font-size: 30px;
     font-weight: 300;
-  }
-}
+  } */
+/* }
 @media (max-width: 980px) {
-  #carousel-home .super-heading {
+  /* #carousel-home .super-heading {
     font-size: 70px;
-  }
-  #carousel-home .super-paragraph {
+  } */
+  /* #carousel-home .super-paragraph {
     font-size: 30px;
     font-weight: 300;
+  } */
+} 
+/* @media (max-width: 1024px) {
+  
+#carousel-home .super-heading {
+    font-size: 260% !important;
   }
-}
-@media (max-width: 767px) {
+
+  #carousel-home .super-paragraph {
+    font-size: 130% !important;
+    font-weight: 300;
+  }
+} */
+
+/* @media (max-width: 1024px) {
+  
   #carousel-home .super-heading {
-    font-size: 30px;
+      font-size: 260% !important;
+    }
+  
+    #carousel-home .super-paragraph {
+      font-size: 130% !important;
+      font-weight: 300;
+    }
+  } */
+
+  @media (max-width: 1173px) {
+    #carousel-home .super-heading {
+      font-size: 10rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 4rem !important;
+    }
   }
-  #carousel-home .super-paragraph {
-    font-size: 30px;
-    font-weight: 300;
+
+  @media (max-width: 1056px) {
+    #carousel-home .super-heading {
+      font-size: 9rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 4rem !important;
+    }
   }
-}
+
+  @media (max-width: 960px) {
+    #carousel-home .super-heading {
+      font-size: 8rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 4rem !important;
+    }
+  }
+  
+  @media (max-width: 853px) {
+    #carousel-home .super-heading {
+      font-size: 7rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 3rem !important;
+    }
+  }
+  
+  @media (max-width: 639px) {
+    #carousel-home .super-heading {
+      font-size: 6rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 3rem !important;
+    }
+  }
+  
+  
+  @media (max-width: 548px) {
+    #carousel-home .super-heading {
+      font-size: 5rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 3rem !important;
+    }
+  }
+
+
+  @media (max-width: 548px) {
+    #carousel-home .super-heading {
+      font-size: 5rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 2.5rem !important;
+    }
+  }
+
+  @media (max-width: 456px) {
+    #carousel-home .super-heading {
+      font-size: 4rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 2.3rem !important;
+    }
+  }
+
+  @media (max-width: 366px) {
+    #carousel-home .super-heading {
+      font-size: 3.9rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 2rem !important;
+    }
+  }
+
+  @media (max-width: 356px) {
+    #carousel-home .super-heading {
+      font-size: 3.8rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 2rem !important;
+    }
+  }
+  
+  @media (max-width: 346px) {
+    #carousel-home .super-heading {
+      font-size: 3.7rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 2rem !important;
+    }
+  }
+
+
+  @media (max-width: 338px) {
+    #carousel-home .super-heading {
+      font-size: 3.6rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 2rem !important;
+    }
+  }
+
+
+  @media (max-width: 328px) {
+    #carousel-home .super-heading {
+      font-size: 3.5rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 2rem !important;
+    }
+  }
+  
+  @media (max-width: 319px) {
+    #carousel-home .super-heading {
+      font-size: 3rem !important;
+    }
+    #carousel-home .super-paragraph {
+      font-size: 1.9rem !important;
+    }
+  }
+  
+  
+
 #carousel-home .carousel-caption .super-paragraph a,
 #carousel-home .carousel-caption .super-paragraph a:hover {
   color: #fff;
