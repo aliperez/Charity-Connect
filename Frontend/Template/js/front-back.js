@@ -1,14 +1,18 @@
 var map;
+
 $(document).ready(function () {
+
     $(document).bind('keypress', function (e) {
         if (e.keyCode == 13) {
             $('#submit-button').trigger('click');
         }
     });
+
     $("#submit-button").on("click", function (event) {
         event.preventDefault();
         var userInput = $("#inputField").val();
         var queryURL = "https://api.data.charitynavigator.org/v2/Organizations?app_id=b3e49cae&app_key=9895f628abd6b37aff48c8eab486f7ed&search=" + userInput + "&rated=true&minRating=0&maxRating=4";
+        
         $.ajax({
             url: queryURL,
             method: "GET",
