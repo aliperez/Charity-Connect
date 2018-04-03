@@ -21,7 +21,7 @@ $(document).ready(function () {
 
         if (userInput === "") {
             $("#input-required").show();
-            $("#input-required").text("Input Required").css({'color': 'red'});
+            $("#input-required").text("Input Required").css({ 'color': 'red' });
 
         } else {
 
@@ -29,11 +29,6 @@ $(document).ready(function () {
 
             // Hide input required
             $("#input-required").hide();
-
-            // Scoll to map 
-            $("html, body").animate({
-                scrollTop: $("#map").offset().top
-            });
 
             // Clear the array on each new click
             myDataArray = [];
@@ -43,6 +38,11 @@ $(document).ready(function () {
                 url: queryURL,
                 method: "GET",
                 success: function (snapshot) {
+
+                    // Scoll to map 
+                    $("html, body").animate({
+                        scrollTop: $("#map").offset().top
+                    });
 
                     // Loop through each charity
                     for (var i = 0; i < snapshot.length; i++) {
@@ -72,7 +72,9 @@ $(document).ready(function () {
                     }
                 },
                 error: function () {
-                    alert('Error occured');
+                    $("#input-required").show();
+                    $("#input-required").text("No Results Found").css({ 'color': 'red' });
+                    console.log('Error occured');
                 }
             })
             // empty the input field
@@ -149,7 +151,7 @@ function updateResult(data, callback) {
             }
         },
         error: function () {
-            alert('Error occured');
+            console.log('Error occured');
         }
     });
 }
@@ -174,13 +176,13 @@ function bindInfoWindow(marker, map, infowindow, content) {
 
         // If currentWindow is true, run this code
         // There should be { } around this if statement, but putting them there breaks the code
-        if (currentWindow){
+        if (currentWindow) {
             currentWindow.close();
             infowindow.open(map, marker);
         }
 
-            currentWindow=infowindow;
-        
+        currentWindow = infowindow;
+
     });
 
     // Listening for clicks on the map, this closes info windows when someone clicks outside the window
