@@ -42,8 +42,6 @@ $(document).ready(function () {
                         }
                     });
                 }
-
-               
             },
             error: function () {
                 alert('Error occured');
@@ -70,14 +68,14 @@ function myMap() {
     map = new google.maps.Map(mapCanvas, mapOptions);
 }
 
-var contentString;
+// var contentString;
 
 // var obj = {
 //     lat, long, contentString
 //  };
 
 // Don't need this anymore
-var myMapArray = [];
+// var myMapArray = [];
 
 function updateResult(data, callback) {
     // for (var i = 0; i < data.length; i++) {
