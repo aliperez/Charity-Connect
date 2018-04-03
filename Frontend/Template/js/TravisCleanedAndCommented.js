@@ -17,67 +17,71 @@ $(document).ready(function () {
         // console.log("clicked")
         event.preventDefault();
 
-       
-        $("html, body").animate({ 
-            scrollTop: $("#map").offset().top });
-       
-
-
         var userInput = $("#inputField").val();
 
         if (userInput === "") {
-            console.log("input required");
+            $("#input-required").show();
+            $("#input-required").text("Input Required").css({'color': 'red'});
 
         } else {
-        var queryURL = "https://api.data.charitynavigator.org/v2/Organizations?app_id=b3e49cae&app_key=9895f628abd6b37aff48c8eab486f7ed&search=" + userInput + "&rated=true&minRating=0&maxRating=4&pageSize=100";
 
-        // Clear the array on each new click
-        myDataArray = [];
+            var queryURL = "https://api.data.charitynavigator.org/v2/Organizations?app_id=b3e49cae&app_key=9895f628abd6b37aff48c8eab486f7ed&search=" + userInput + "&rated=true&minRating=0&maxRating=4&pageSize=100";
 
-        // First ajax call gets charity information
-        $.ajax({
-            url: queryURL,
-            method: "GET",
-            success: function (snapshot) {
+            // Hide input required
+            $("#input-required").hide();
 
-                // Loop through each charity
-                for (var i = 0; i < snapshot.length; i++) {
+            // Scoll to map 
+            $("html, body").animate({
+                scrollTop: $("#map").offset().top
+            });
 
-                    // snapshotLength is a counter used to track how many items go into the array, we are subtracting the number of P.O. boxes from this counter below each time response.status is not "OK"
-                    snapshotLength = snapshot.length;
+            // Clear the array on each new click
+            myDataArray = [];
 
-                    // updateResult takes the charity navigator address ready and then passes it into geocoding
-                    // The inputs include the ith chairty and a callback function
-                    // The "data" from function(data) refers to... not really sure tbh
-                    updateResult(snapshot[i], function(data){
+            // First ajax call gets charity information
+            $.ajax({
+                url: queryURL,
+                method: "GET",
+                success: function (snapshot) {
 
-                        // console.log('after callback', data);
+                    // Loop through each charity
+                    for (var i = 0; i < snapshot.length; i++) {
 
-                        // Pushing callback data into our array 
-                        myDataArray.push(data);
+                        // snapshotLength is a counter used to track how many items go into the array, we are subtracting the number of P.O. boxes from this counter below each time response.status is not "OK"
+                        snapshotLength = snapshot.length;
 
-                        // Once the array is finished, place pins on the map
-                        // myDataArray.length starts at 0 and goes up by one each time we add to the array
-                        // snapshotLength starts at 100 and reduces by one each time response.status is not "OK"
-                        // When they are equal, only then do we draw pins on the map bc the array is complete
-                        if(myDataArray.length === snapshotLength) {
-                            // console.log(myDataArray);
-                            updateMap();
-                        }
-                    });
+                        // updateResult takes the charity navigator address ready and then passes it into geocoding
+                        // The inputs include the ith chairty and a callback function
+                        // The "data" from function(data) refers to... not really sure tbh
+                        updateResult(snapshot[i], function (data) {
+
+                            // console.log('after callback', data);
+
+                            // Pushing callback data into our array 
+                            myDataArray.push(data);
+
+                            // Once the array is finished, place pins on the map
+                            // myDataArray.length starts at 0 and goes up by one each time we add to the array
+                            // snapshotLength starts at 100 and reduces by one each time response.status is not "OK"
+                            // When they are equal, only then do we draw pins on the map bc the array is complete
+                            if (myDataArray.length === snapshotLength) {
+                                // console.log(myDataArray);
+                                updateMap();
+                            }
+                        });
+                    }
+                },
+                error: function () {
+                    alert('Error occured');
                 }
-            },
-            error: function () {
-                alert('Error occured');
-            }
-        })
-        // empty the input field
-        $("#inputField").val("");
-        clearMarkers();
-    }
-});
+            })
+            // empty the input field
+            $("#inputField").val("");
+            clearMarkers();
+        }
+    });
 
-        // $('#submit-button').on('click', function() { CELESTE
+    // $('#submit-button').on('click', function() { CELESTE
     //     if ($(this).hasClass('clicked')) {
     //         myMap(null);
     //         console.log("cool");
@@ -85,9 +89,9 @@ $(document).ready(function () {
     //    });
 });
 
-function clearMarkers() { 
+function clearMarkers() {
     myMap(null);
-  }
+}
 
 // This is the initial map when the page is first loaded
 function myMap() {
@@ -104,50 +108,50 @@ function myMap() {
 // This function takes in the data from the first ajax and a callback function
 function updateResult(data, callback) {
 
-        // We are currently inside the first ajax call, saving the charity address as a string to pass into geocoding
-        var geoCodingAddress = data.mailingAddress.streetAddress1 + "," + data.mailingAddress.city + "," + data.mailingAddress.stateOrProvince;
+    // We are currently inside the first ajax call, saving the charity address as a string to pass into geocoding
+    var geoCodingAddress = data.mailingAddress.streetAddress1 + "," + data.mailingAddress.city + "," + data.mailingAddress.stateOrProvince;
 
-        // Geocoding ajax call takes in address as a string and spits out lat/long coordinates
-        $.ajax({
-            url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + geoCodingAddress + "&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo",
-            method: "GET",
-            success: function (response) {
+    // Geocoding ajax call takes in address as a string and spits out lat/long coordinates
+    $.ajax({
+        url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + geoCodingAddress + "&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo",
+        method: "GET",
+        success: function (response) {
 
-                // Check to make sure not a P.O box
-                if(response.status === "OK") {
+            // Check to make sure not a P.O box
+            if (response.status === "OK") {
 
-                    // Get lat and long from geocoding
-                    var lat = JSON.stringify(response.results[0].geometry.location.lat);
-                    var long = JSON.stringify(response.results[0].geometry.location.lng);
-    
-                    // Take all pertinent info from chrities (from first ajax call) and keep in a string
-                    // I placed each part of the contentString on it's own line to help understand what exactly each piece represents
-                    // I also added two closing div tags at the end
-                    var contentString = '<div class="scrollFix" class="info-window">' + 
+                // Get lat and long from geocoding
+                var lat = JSON.stringify(response.results[0].geometry.location.lat);
+                var long = JSON.stringify(response.results[0].geometry.location.lng);
+
+                // Take all pertinent info from chrities (from first ajax call) and keep in a string
+                // I placed each part of the contentString on it's own line to help understand what exactly each piece represents
+                // I also added two closing div tags at the end
+                var contentString = '<div class="scrollFix" class="info-window">' +
                     '<h5>' + data.charityName + '</h5>' +
-                    '<div class="info-content">' + 
-                    '<strong>Rating: </strong>' + data.currentRating.rating + 
-                    '<br>' + 
-                    '<strong>Address: </strong>' + data.mailingAddress.streetAddress1 + ", " + data.mailingAddress.city + ", " + data.mailingAddress.stateOrProvince + ", " + data.mailingAddress.postalCode + 
-                    '<br>' + 
-                    "<strong>Tag line: </strong>" + data.tagLine + 
-                    '<br>' + 
+                    '<div class="info-content">' +
+                    '<strong>Rating: </strong>' + data.currentRating.rating +
+                    '<br>' +
+                    '<strong>Address: </strong>' + data.mailingAddress.streetAddress1 + ", " + data.mailingAddress.city + ", " + data.mailingAddress.stateOrProvince + ", " + data.mailingAddress.postalCode +
+                    '<br>' +
+                    "<strong>Tag line: </strong>" + data.tagLine +
+                    '<br>' +
                     '<strong>Website: </strong>' + "<a href='" + data.websiteURL + "' target='_blank'>" + data.websiteURL + '</a></div></div>';
 
-                    // We use a callback function because it is guaranteed to run LAST in this ajax call (at least I think this is why)
-                    // This takes the lat, long, and content string and puts them together in an object, later we push each obj to our array   
-                    callback({lat: lat, long: long, contentString: contentString});
-                }
-
-                // If we do have a P.O. box, subtract from the snapshotLength counter
-                else{
-                    snapshotLength--;
-                }
-            },
-            error: function () {
-                alert('Error occured');
+                // We use a callback function because it is guaranteed to run LAST in this ajax call (at least I think this is why)
+                // This takes the lat, long, and content string and puts them together in an object, later we push each obj to our array   
+                callback({ lat: lat, long: long, contentString: contentString });
             }
-        });
+
+            // If we do have a P.O. box, subtract from the snapshotLength counter
+            else {
+                snapshotLength--;
+            }
+        },
+        error: function () {
+            alert('Error occured');
+        }
+    });
 }
 
 // This function deals with the info window
@@ -172,33 +176,33 @@ function bindInfoWindow(marker, map, infowindow, content) {
         // There should be { } around this if statement, but putting them there breaks the code
         if (currentWindow)
             currentWindow.close();
-            infowindow.open(map, marker);
-            currentWindow=infowindow;
-        
+        infowindow.open(map, marker);
+        currentWindow = infowindow;
+
     });
 
     // Listening for clicks on the map, this closes info windows when someone clicks outside the window
     google.maps.event.addListener(map, 'click', function () {
-        if (infowindow != null) { 
-            infowindow.close(); 
+        if (infowindow != null) {
+            infowindow.close();
         }
     });
 
 };
 
 function updateMap() {
-    
+
     // Loop through our array of objects which look like this: {lat, long, contentString} for each index
     for (var j = 0; j < myDataArray.length; j++) {
- 
-            // Placing a new pin on the map for each item in our array, using lat and long
-            var newPin = new google.maps.LatLng(myDataArray[j].lat, myDataArray[j].long);
-            var marker = new google.maps.Marker({ position: newPin, map: map });
 
-            // Google Maps allowing an info window
-            var infoWindow = new google.maps.InfoWindow();
+        // Placing a new pin on the map for each item in our array, using lat and long
+        var newPin = new google.maps.LatLng(myDataArray[j].lat, myDataArray[j].long);
+        var marker = new google.maps.Marker({ position: newPin, map: map });
 
-            // Call bindInfoWindow funcion above and pass in contentString key from our array
-            bindInfoWindow(marker, map, infoWindow, myDataArray[j].contentString);  
+        // Google Maps allowing an info window
+        var infoWindow = new google.maps.InfoWindow();
+
+        // Call bindInfoWindow funcion above and pass in contentString key from our array
+        bindInfoWindow(marker, map, infoWindow, myDataArray[j].contentString);
     }
 }
