@@ -16,7 +16,19 @@ $(document).ready(function () {
     $("#submit-button").on("click", function (event) {
         // console.log("clicked")
         event.preventDefault();
+
+       
+        $("html, body").animate({ 
+            scrollTop: $("#map").offset().top });
+       
+
+
         var userInput = $("#inputField").val();
+
+        if (userInput === "") {
+            console.log("input required");
+
+        } else {
         var queryURL = "https://api.data.charitynavigator.org/v2/Organizations?app_id=b3e49cae&app_key=9895f628abd6b37aff48c8eab486f7ed&search=" + userInput + "&rated=true&minRating=0&maxRating=4&pageSize=100";
 
         // Clear the array on each new click
@@ -61,7 +73,9 @@ $(document).ready(function () {
         })
         // empty the input field
         $("#inputField").val("");
-    });
+        clearMarkers();
+    }
+});
 
         // $('#submit-button').on('click', function() { CELESTE
     //     if ($(this).hasClass('clicked')) {
@@ -70,6 +84,10 @@ $(document).ready(function () {
     //      }
     //    });
 });
+
+function clearMarkers() { 
+    myMap(null);
+  }
 
 // This is the initial map when the page is first loaded
 function myMap() {
