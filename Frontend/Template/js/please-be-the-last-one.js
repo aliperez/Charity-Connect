@@ -9,7 +9,7 @@ $(document).ready(function () {
         console.log("clicked");
         event.preventDefault();
         var userInput = $("#inputField").val();
-        var queryURL = "https://api.data.charitynavigator.org/v2/Organizations?app_id=b3e49cae&app_key=9895f628abd6b37aff48c8eab486f7ed&search=" + userInput + "&rated=true&minRating=0&maxRating=100";
+        var queryURL = "https://api.data.charitynavigator.org/v2/Organizations?app_id=b3e49cae&app_key=9895f628abd6b37aff48c8eab486f7ed&search=" + userInput + "&rated=true&minRating=0&maxRating=4&pageSize=50";
         myDataArray = [];
         $.ajax({
             url: queryURL,
@@ -54,7 +54,6 @@ function myMap() {
 }
 
 function updateResult(data, callback) {
-    // for (var i = 0; i < data.length; i++) {
 
         var geoCodingAddress = data.mailingAddress.streetAddress1 + "," + data.mailingAddress.city + "," + data.mailingAddress.stateOrProvince;
 
@@ -66,17 +65,9 @@ function updateResult(data, callback) {
                     var lat = JSON.stringify(response.results[0].geometry.location.lat);
                     var long = JSON.stringify(response.results[0].geometry.location.lng);
     
-                    // console.log(lat);
-                    // console.log(long);
-    
-                    // console.log(data.charityName);
-    
-                    // console.log("value of i is: " + i);
-    
                     var contentString = '<div class="info-window">' + '<h5>' + data.charityName + '</h5>' +
                     '<div class="info-content">' + '<strong>Rating: </strong>' + data.currentRating.rating + '<br>' + '<strong>Address: </strong>' + data.mailingAddress.streetAddress1 + ", " + data.mailingAddress.city + ", " + data.mailingAddress.stateOrProvince + ", " + data.mailingAddress.postalCode + '<br>' + "<strong>Tag line: </strong>" + data.tagLine + '<br>' + '<strong>Website: </strong>' + "<a href='" + data.websiteURL + "' target='_blank'>" + data.websiteURL + '</a>';
     
-                    // console.log(contentString);
                     callback({lat: lat, long: long, contentString: contentString});
                 }
                 else{
@@ -87,31 +78,27 @@ function updateResult(data, callback) {
                 alert('Error occured');
             }
         });
-    // }
-
 }
 
-function bindInfoWindow(marker, map, infowindow, content) {
-    google.maps.event.addListener(marker, 'click', function () {
+// function bindInfoWindow(marker, map, infowindow, content) {
+//     google.maps.event.addListener(marker, 'click', function () {
 
-        infowindow.setContent(content);
-        infowindow.open(map, marker);
+//         infowindow.setContent(content);
+//         infowindow.open(map, marker);
 
-        if (currentWindow) {
-            currentWindow.close();
-                infowindow.open(map, marker);
-            currentWindow = infowindow;
-        }
+//         if (currentWindow) {
+//             currentWindow.close();
+//                 infowindow.open(map, marker);
+//             currentWindow = infowindow;
+//         }
     
-        google.maps.event.addListener(map, 'click', function () {
-            if (infowindow != null) {
-                infowindow.close();
-            }
-            });
-    });
-};
-
-
+//         google.maps.event.addListener(map, 'click', function () {
+//             if (infowindow != null) {
+//                 infowindow.close();
+//             }
+//             });
+//     });
+// };
 
 function updateMap() {
 
@@ -123,13 +110,39 @@ function updateMap() {
         // // marker.setMap(map);
 
         var infoWindow = new google.maps.InfoWindow({
-            content: '<div class="scrollFix">' + contentString + '</div>',
+            content: '<div class="scrollFix">' + myDataArray[j].contentString + '</div>',
             maxWidth: 400
         });
 
         currentWindow = null;
 
-        bindInfoWindow(marker, map, infoWindow, myDataArray[j].contentString);
+        // bindInfoWindow(marker, map, infoWindow, myDataArray[j].contentString);
+
+        // google.maps.event.addListener(marker, 'click', function () {
+        
+        marker.addListener("click", function(){
+
+            infoWindow.setContent(infoWindow.content);
+            infoWindow.open(map, marker);
+    
+            if (currentWindow) {
+                //closes the current window
+                currentWindow.close();
+                //this opens a new infoWindow (the one that was clicked)
+                infoWindow.open(map, marker);
+                //current window becomes the new one just opened
+                currentWindow = infoWindow;
+            }
+
+        });
+        
+            
+        google.maps.event.addListener(map, 'click', function () {
+                //if user clicks outside of the current window it closes
+                if (infoWindow != null) {
+                    infoWindow.close();
+                }
+        });
     }
 
 }
@@ -176,3 +189,4 @@ function updateMap() {
 //     clearMarkers();
 //     var marker = new google.maps.Marker({ position: myCenter });
 //     marker.setMap(map);
+//   }

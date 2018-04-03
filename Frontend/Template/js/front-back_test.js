@@ -1,9 +1,13 @@
 var map;
 
-$("#connect").show();
 $(document).ready(function () {
 
-    console.log("document ready")
+    $(document).bind('keypress', function (e) {
+        if (e.keyCode == 13) {
+            $('#submit-button').trigger('click');
+        }
+    });
+
     $("#submit-button").on("click", function (event) {
         console.log("clicked")
         event.preventDefault();
@@ -91,9 +95,7 @@ function bindInfoWindow(marker, map, infowindow, content) {
 
 
 function updateMap() {
-    console.log(dataArray)
-
-    console.log("in updateMAP", dataArray.length)
+    //console.log(dataArray)
     for (var i = 0; i < dataArray.length; i++) {
         console.log("inside for loopss")
         var data = dataArray[i];
@@ -110,8 +112,15 @@ function updateMap() {
             marker.setMap(map);
 
             console.log(contentString[i])
-            var infoWindow = new google.maps.InfoWindow();
-            bindInfoWindow(marker, map, infoWindow, contentString[i]);
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString[i],
+                maxWidth: 400
+            });
+            console.log(infowindow)
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
         }
     }
 

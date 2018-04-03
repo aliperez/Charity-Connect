@@ -1,13 +1,14 @@
-var geoCodingAddress, lat, long, contentString;
+var geoCodingAddress, lat, long, contentString, marker;
 
-$("#connect").hide();
-
+$(document).bind('keypress', function (e) {
+    if (e.keyCode == 13) {
+        $('#submit-button').trigger('click');
+    }
+});
 
 $("#submit-button").on("click", function (event) {
 
     event.preventDefault();
-
-    $("#connect").show();
 
     var userInput = $("#inputField").val();
 
@@ -17,10 +18,13 @@ $("#submit-button").on("click", function (event) {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-    
-        contentString = '<div class="info-window">' + '<h6>' + response[0].charityName + '</h6>' +
-        '<div class="info-content">' + 'Rating: ' + response[0].currentRating.rating + '<br>' + 'Address: ' + response[1].mailingAddress.streetAddress1 + ", " + response[1].mailingAddress.city + ", " + response[1].mailingAddress.stateOrProvince + ", " + response[1].mailingAddress.postalCode + '<br>' + "Tag line: " + response[0].tagLine + '<br>' + 'Website: '+'<a href="http://purrfectpals.org" target="_blank">' + response[0].websiteURL +'</a>';
 
+        var link = response[0].websiteURL
+
+        contentString = '<div class="info-window">' + '<h6>' + response[0].charityName + '</h6>' +
+            '<div class="info-content">' + 'Rating: ' + response[0].currentRating.rating + '<br>' + 'Address: ' + response[1].mailingAddress.streetAddress1 + ", " + response[1].mailingAddress.city + ", " + response[1].mailingAddress.stateOrProvince + ", " + response[1].mailingAddress.postalCode + '<br>' + "Tag line: " + response[0].tagLine + '<br>' + 'Website: ' + '<a href="http://purrfectpals.org" target="_blank">' + response[0].websiteURL + '</a>';
+
+        $(contentString).append(link)
         // Get reference to existing tbody element, create a new table row element
         console.log(response);
 
@@ -39,6 +43,8 @@ $("#submit-button").on("click", function (event) {
         console.log(response[1].mailingAddress.streetAddress1 + ", " + response[1].mailingAddress.city + ", " + response[1].mailingAddress.stateOrProvince + ", " + response[1].mailingAddress.postalCode);
 
         geoCodingAddress = response[1].mailingAddress.streetAddress1 + ",+" + response[1].mailingAddress.city + ",+" + response[1].mailingAddress.stateOrProvince;
+
+        console.log('Website: ' + link)
 
         // console.log(geoCodingAddress);
 
@@ -77,10 +83,10 @@ $("#submit-button").on("click", function (event) {
 function myMap() {
 
     var myCenter = new google.maps.LatLng(lat, long);
-
+    
     var mapCanvas = document.getElementById("map");
 
-    var mapOptions = { center: myCenter, zoom: 5 };
+    var mapOptions = { center: myCenter, zoom: 3.5 };
     var map = new google.maps.Map(mapCanvas, mapOptions);
     var marker = new google.maps.Marker({ position: myCenter });
     marker.setMap(map);
@@ -95,7 +101,6 @@ function myMap() {
     });
 
 }
-
 
 
 // $(function(){
