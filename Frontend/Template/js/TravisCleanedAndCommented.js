@@ -174,11 +174,13 @@ function bindInfoWindow(marker, map, infowindow, content) {
 
         // If currentWindow is true, run this code
         // There should be { } around this if statement, but putting them there breaks the code
-        if (currentWindow)
+        if (currentWindow){
             currentWindow.close();
-        infowindow.open(map, marker);
-        currentWindow = infowindow;
+            infowindow.open(map, marker);
+        }
 
+            currentWindow=infowindow;
+        
     });
 
     // Listening for clicks on the map, this closes info windows when someone clicks outside the window
