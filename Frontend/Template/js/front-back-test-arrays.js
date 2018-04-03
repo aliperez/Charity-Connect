@@ -20,10 +20,10 @@ $(document).ready(function () {
                 // updateResult(snapshot);
                 for (var i = 0; i < snapshot.length; i++) {
                     snapshotLength = snapshot.length;
-                    updateResult(snapshot[i], function(data){
+                    updateResult(snapshot[i], function (data) {
                         // console.log('after callback', data);
                         myDataArray.push(data);
-                        if(myDataArray.length === snapshotLength) {
+                        if (myDataArray.length === snapshotLength) {
                             console.log(myDataArray);
                             // put the pins on the map
                             // using the myDataArray
@@ -31,8 +31,6 @@ $(document).ready(function () {
                         }
                     });
                 }
-
-               
             },
             error: function () {
                 alert('Error occured');
@@ -52,46 +50,49 @@ function myMap() {
     map = new google.maps.Map(mapCanvas, mapOptions);
 }
 
+//Might not need this 
 var contentString;
 
 // var obj = {
 //     lat, long, contentString
 //  };
+
+//Didn't end up using this either
 var myMapArray = [];
 function updateResult(data, callback) {
     // for (var i = 0; i < data.length; i++) {
 
-        var geoCodingAddress = data.mailingAddress.streetAddress1 + "," + data.mailingAddress.city + "," + data.mailingAddress.stateOrProvince;
+    var geoCodingAddress = data.mailingAddress.streetAddress1 + "," + data.mailingAddress.city + "," + data.mailingAddress.stateOrProvince;
 
-        $.ajax({
-            url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + geoCodingAddress + "&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo",
-            method: "GET",
-            success: function (response) {
-                if(response.status === "OK") {
-                    var lat = JSON.stringify(response.results[0].geometry.location.lat);
-                    var long = JSON.stringify(response.results[0].geometry.location.lng);
-    
-                    // console.log(lat);
-                    // console.log(long);
-    
-                    // console.log(data.charityName);
-    
-                    // console.log("value of i is: " + i);
-    
-                    var contentString = '<div class="info-window">' + '<h5>' + data.charityName + '</h5>' +
+    $.ajax({
+        url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + geoCodingAddress + "&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo",
+        method: "GET",
+        success: function (response) {
+            if (response.status === "OK") {
+                var lat = JSON.stringify(response.results[0].geometry.location.lat);
+                var long = JSON.stringify(response.results[0].geometry.location.lng);
+
+                // console.log(lat);
+                // console.log(long);
+
+                // console.log(data.charityName);
+
+                // console.log("value of i is: " + i);
+
+                var contentString = '<div class="info-window">' + '<h5>' + data.charityName + '</h5>' +
                     '<div class="info-content">' + '<strong>Rating: </strong>' + data.currentRating.rating + '<br>' + '<strong>Address: </strong>' + data.mailingAddress.streetAddress1 + ", " + data.mailingAddress.city + ", " + data.mailingAddress.stateOrProvince + ", " + data.mailingAddress.postalCode + '<br>' + "<strong>Tag line: </strong>" + data.tagLine + '<br>' + '<strong>Website: </strong>' + "<a href='" + data.websiteURL + "' target='_blank'>" + data.websiteURL + '</a>';
-    
-                    // console.log(contentString);
-                    callback({lat: lat, long: long, contentString: contentString});
-                }
-                else{
-                    snapshotLength--;
-                }
-            },
-            error: function () {
-                alert('Error occured');
+
+                // console.log(contentString);
+                callback({ lat: lat, long: long, contentString: contentString });
             }
-        });
+            else {
+                snapshotLength--;
+            }
+        },
+        error: function () {
+            alert('Error occured');
+        }
+    });
     // }
 
 }
@@ -100,13 +101,25 @@ function updateResult(data, callback) {
 
 
 
-
 function bindInfoWindow(marker, map, infowindow, content) {
     google.maps.event.addListener(marker, 'click', function () {
+
         infowindow.setContent(content);
         infowindow.open(map, marker);
+
+        if (currentWindow) {
+            currentWindow.close();
+                infowindow.open(map, marker);
+            currentWindow = infowindow;
+        }
+    
+        google.maps.event.addListener(map, 'click', function () {
+            if (infowindow != null) {
+                infowindow.close();
+            }
+            });
     });
-}
+};
 
 
 
@@ -114,15 +127,19 @@ function updateMap() {
 
     for (var j = 0; j < myDataArray.length; j++) {
         console.log(myDataArray[j]);
- 
-            var newPin = new google.maps.LatLng(myDataArray[j].lat, myDataArray[j].long);
-            var marker = new google.maps.Marker({ position: newPin, map: map });
-            // // marker.setMap(map);
 
-            var infoWindow = new google.maps.InfoWindow();
-            bindInfoWindow(marker, map, infoWindow, myDataArray[j].contentString);
-        // }
+        var newPin = new google.maps.LatLng(myDataArray[j].lat, myDataArray[j].long);
+        var marker = new google.maps.Marker({ position: newPin, map: map });
+        // // marker.setMap(map);
+
+        var infoWindow = new google.maps.InfoWindow({
+            content: '<div class="scrollFix">' + contentString + '</div>',
+            maxWidth: 400
+        });
+
+        currentWindow = null;
+
+        bindInfoWindow(marker, map, infoWindow, myDataArray[j].contentString);
     }
-
 
 }
