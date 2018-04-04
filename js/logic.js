@@ -115,7 +115,7 @@ function updateResult(data, callback) {
 
     // Geocoding ajax call takes in address as a string and spits out lat/long coordinates
     $.ajax({
-        url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + geoCodingAddress + "&key=AIzaSyDf5_ufIVYnnt4x6mjVhaVwXUncIyIRGxo",
+        url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + geoCodingAddress + "&key=AIzaSyAjIex669-wZM06Ll1UHYFKNvwqBWGCAJs",
         method: "GET",
         success: function (response) {
 
